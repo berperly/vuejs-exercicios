@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <input type="email" v-model="mail" placeholder="Digite seu email" />
+    <br />
+    <input type="password" v-model="senha" placeholder="Digite sua senha" />
+    <br />
+    <button :disabled="!dadosValidos">Realizar cadastro</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      mail: '',
+      senha: '',
+    }
+  },
+  computed: {
+    dadosValidos() {
+      return this.mail && this.senha
+    }
+  }
+}
+</script>
+
+<style>
+input, button {
+  border-radius: 5px;
+  background-color: white;
+}
+</style>
