@@ -1,5 +1,5 @@
-// Esse projeto é baseado em uma interface de login utilizando 4 campos com input para designar // O
-nome, email e duas confirmações de senha (ambas precisam ser iguais) // Após a validação, caso as
+// Esse projeto é baseado em uma interface de login utilizando 4 campos com input para designar o
+nome, email e duas confirmações de senha (ambas precisam ser iguais) após a validação, caso as
 senhas sejam idênticas, um alert é retornado exibindo a variavel "nome".
 
 <script>
