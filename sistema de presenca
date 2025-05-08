@@ -1,0 +1,206 @@
+// Sistema de presença feito em vue.js
+
+
+<script>
+export default {
+  data() {
+    return {
+      pessoas: [],
+      abrirModal: false,
+      addPessoa: {
+        nome: '',
+        turno: '',
+        atraso: false
+      }
+    };
+  },
+  methods: {
+    adicionarPessoa() {
+      if (this.addPessoa.nome && this.addPessoa.turno) {
+        this.pessoas.push({ ...this.addPessoa });
+        this.addPessoa = { nome: '', turno: '', atraso: false };
+        this.abrirModal = false;
+      }
+    }
+  }
+};
+</script>
+
+<template>
+  <div class="container">
+    <h1>Lista de Presença</h1>
+
+    <p v-if="pessoas.length === 0" class="sem-registro">Nenhum aluno registrado</p>
+
+    <div v-if="pessoas.length > 0" class="tabela-container">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>NOME</th>
+            <th>TURNO</th>
+            <th>ATRASO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(pessoa, index) in pessoas" :key="index">
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.turno }}</td>
+            <td>{{ pessoa.atraso ? 'Sim' : 'Não' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="botao-abrir" @click="abrirModal = true">Adicionar presença</button>
+
+    <div v-if="abrirModal" class="modal">
+      <div class="modal-content">
+        <h2>Adicionar Presença</h2>
+        <input v-model="addPessoa.nome" placeholder="Nome" class="input" />
+
+        <select v-model="addPessoa.turno" class="input">
+          <option disabled value="">Selecione um turno</option>
+          <option value="Matutino">Matutino</option>
+          <option value="Vespertino">Vespertino</option>
+          <option value="Noturno">Noturno</option>
+        </select>
+
+        <label class="checkbox">
+          <input type="checkbox" v-model="addPessoa.atraso" />
+          O aluno chegou atrasado?
+        </label>
+
+        <div class="botoes-modal">
+          <button class="botao-confirmar" @click="adicionarPessoa">Adicionar</button>
+          <button class="botao-cancelar" @click="abrirModal = false">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.sem-registro {
+  margin: 20px 0;
+  font-style: italic;
+  color: #777;
+}
+
+.tabela-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th, .tabela td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+.tabela th {
+  background-color: #f4f4f4;
+  color: #444;
+}
+
+.botao-abrir {
+  padding: 10px 20px;
+  border: none;
+  background-color: #5a67d8;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.botao-abrir:hover {
+  background-color: #434190;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.botoes-modal {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.botao-confirmar {
+  background-color: #48bb78;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.botao-confirmar:hover {
+  background-color: #38a169;
+}
+
+.botao-cancelar {
+  background-color: #f56565;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.botao-cancelar:hover {
+  background-color: #e53e3e;
+}
+</style>
